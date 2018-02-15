@@ -9,11 +9,13 @@ class App extends Component {
       data: null,
       newData: ''
     };
+    this.dataRef = null;
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
   componentDidMount() {
-    database.ref().on('value', snapshot => {
+    this.dataRef = database.ref('/AMAZINGDATA');
+    this.dataRef.on('value', snapshot => {
       this.setState({ data: snapshot.val() });
     });
   }
@@ -23,10 +25,7 @@ class App extends Component {
   }
   handleSubmit(event) {
     event.preventDefault();
-    const newData = database
-      .ref()
-      .child('AMAZINGDATA')
-      .push(this.state.newData);
+    const newData = this.dataRef.push(this.state.newData);
   }
   render() {
     return (
