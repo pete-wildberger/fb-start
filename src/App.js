@@ -26,7 +26,7 @@ class App extends Component {
     const newData = database
       .ref()
       .child('AMAZINGDATA')
-      .set(this.state.newData);
+      .push(this.state.newData);
   }
   render() {
     return (
@@ -35,7 +35,7 @@ class App extends Component {
           <h1 className="App-title">Welcome to React and firebase</h1>
         </header>
         <pre>{JSON.stringify(this.state.data, null, 2)}</pre>
-        <form onChange={this.handleSubmit}>
+        <form onSubmit={this.handleSubmit}>
           <input type="text" value={this.state.newData} onChange={this.handleChange} />
           <input type="submit" />
         </form>
